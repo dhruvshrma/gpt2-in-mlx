@@ -1,10 +1,9 @@
-from typing import Tuple, List
-
-from mlx.core import array
+from typing import Tuple, List, Iterator
 
 from src.tokenizer import encode_text, prepare_vocab
 from src.model_params import ModelParams
 import mlx.core as mx
+import numpy as np
 
 
 def generate_train_test_split(
@@ -36,3 +35,19 @@ def generate_train_test_dataset(
         mx.array(test_dataset_input),
         mx.array(test_dataset_labels),
     )
+
+
+def get_batches(
+    input_array: mx.array,
+    label_array: mx.array,
+    model_params: ModelParams,
+    shuffle=True,
+) -> Iterator[Tuple[mx.array, mx.array]]:
+    batch_size = model_params.batch_size
+    indices = np.arange(input_array.shape[0])
+    if shuffle:
+        np.random.shuffle(indices)
+    indices = mx.array(indices)
+    for i in range(0, input_array.shape[0], batch_size):
+        batch_indices = indices[i : i + batch_size]
+        yield input_array[batch_indices], label_array[batch_indices]

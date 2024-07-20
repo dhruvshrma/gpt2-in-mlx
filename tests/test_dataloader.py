@@ -36,3 +36,18 @@ def test_train_test_dataset(input_text) -> None:
     assert test_input.shape[0] == int(len(test_data) / model_params.context_length)
     assert train_labels.shape[0] == int(len(train_data) / model_params.context_length)
     assert test_labels.shape[0] == int(len(test_data) / model_params.context_length)
+
+
+def test_get_batches() -> None:
+
+    input_array = mx.array(np.random.rand(100, 10))
+    label_array = mx.array(np.random.rand(100, 10))
+
+    model_params = ModelParams(batch_size=4, context_length=10)
+    batches = get_batches(input_array, label_array, model_params)
+    batch_count = sum(1 for _ in batches)
+    nb_batches = np.ceil(input_array.shape[0] / model_params.batch_size)
+    assert nb_batches == batch_count
+    for input_batch, label_batch in batches:
+        assert input_batch.shape == (4, 10)
+        assert label_batch.shape == (4, 10)
