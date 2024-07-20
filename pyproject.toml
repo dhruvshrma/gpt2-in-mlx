@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "gpt-mlx"
+version = "0.1.0"
+description = "Implementing GPT2 in MLX"
+authors = ["Dhruv Sharma <dhruv.sharma@polytechnique.org>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+#mlx = "^0.15.1"
+numpy = "<2.0.0"
+pandas = "^2.2.2"
+pytest = "^8.2.2"
+##torch = "^2.3.1"
+#torch = {version = "^2.3.1+cu121", source = "pytorch"}
+#
+#[[tool.poetry.source]]
+#name = "pytorch"
+#url = "https://download.pytorch.org/whl/cu121"
+#priority = "explicit"
+torch = "^2.3.1"
+black = "^24.4.2"
+mypy = "^1.11.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
