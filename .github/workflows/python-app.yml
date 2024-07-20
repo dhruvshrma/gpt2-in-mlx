@@ -30,7 +30,6 @@ jobs:
       with:
         python-version: "3.12.2"
         cache: "poetry"
-        cache-dependency-path: poetry.lock
 
     - name: Set Poetry environment
       run: |
@@ -39,7 +38,7 @@ jobs:
     - name: Install dependencies
       run: |
         poetry install --no-root
-        pip install mlx
+        poetry run pip install mlx
 
     - name: Test with pytest
       run: |
